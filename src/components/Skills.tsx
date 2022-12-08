@@ -1,74 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { BiChevronDown, BiCodeCurly, BiServer } from "react-icons/bi";
 import { AiOutlineMobile } from "react-icons/ai";
 import { NavItem } from "../types/NavItem";
 import { Skill } from "./Skill";
+import { getSkills } from "../utils/supabase/getSkills";
+import { DevelopmentType } from "../types/DevelopmentType";
+import { ISkillState } from "../types/ISkillState";
+import { getExperienceYears } from "../utils/functions";
+import {
+  startDateOfBackendExperience,
+  startDateOfFrontendExperience,
+  startDateOfMobileExperience,
+} from "../utils/dates";
 
-const skills = {
-  frontend: [
-    {
-      name: "HTML",
-      value: 90,
-    },
-    {
-      name: "CSS",
-      value: 80,
-    },
-    {
-      name: "JavaScript",
-      value: 90,
-    },
-    {
-      name: "React",
-      value: 90,
-    },
-    {
-      name: "Next.js",
-      value: 90,
-    },
-    {
-      name: "Angular",
-      value: 80,
-    },
-  ],
-  mobile: [
-    {
-      name: "React Native",
-      value: 90,
-    },
-    {
-      name: "Flutter",
-      value: 80,
-    },
-  ],
-  backend: [
-    {
-      name: "Node.js",
-      value: 90,
-    },
-    {
-      name: "Firebase",
-      value: 90,
-    },
-    {
-      name: "MongoDB",
-      value: 80,
-    },
-    {
-      name: "C#",
-      value: 80,
-    },
-  ],
-};
+interface IState {
+  readonly opened: number;
+  readonly skills: ISkillState;
+}
 
 export const Skills = () => {
-  const [state, setState] = useState({
+  const [state, setState] = React.useState<IState>({
     opened: 0,
+    skills: {
+      [DevelopmentType.Backend]: [],
+      [DevelopmentType.Frontend]: [],
+      [DevelopmentType.Mobile]: [],
+    },
   });
-  const getPercentage = (value: number) => {
-    return `${value}%`;
-  };
+
+  React.useEffect(() => {
+    getSkills()
+      .then((data) => {
+        console.log(data);
+        setState((prev) => ({
+          ...prev,
+          skills: data,
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const getClassName = (value: number) => {
     return value === state.opened ? "skills__open" : "skills__close";
@@ -94,13 +67,17 @@ export const Skills = () => {
 
               <div>
                 <h1 className="skills__titles">Frontend Developer</h1>
-                <span className="skills__subtitle">More than 3 years</span>
+                <span className="skills__subtitle">
+                  {` More than ${getExperienceYears(
+                    startDateOfFrontendExperience
+                  )} years`}
+                </span>
               </div>
               <BiChevronDown className="skills__arrow" />
             </div>
             <div className="skills__list grid">
-              {skills.frontend.map((skill, index) => (
-                <Skill key={index} name={skill.name} value={skill.value} />
+              {state.skills[DevelopmentType.Frontend].map((skill, index) => (
+                <Skill key={index} name={skill.title} value={skill.rate} />
               ))}
             </div>
           </div>
@@ -112,14 +89,18 @@ export const Skills = () => {
 
             <div>
               <h1 className="skills__titles">Mobile Developer</h1>
-              <span className="skills__subtitle">More than 1 years</span>
+              <span className="skills__subtitle">
+                {` More than ${getExperienceYears(
+                  startDateOfBackendExperience
+                )} years`}
+              </span>
             </div>
 
             <BiChevronDown className="skills__arrow" />
           </div>
           <div className="skills__list grid">
-            {skills.mobile.map((skill, index) => (
-              <Skill key={index} name={skill.name} value={skill.value} />
+            {state.skills[DevelopmentType.Mobile].map((skill, index) => (
+              <Skill key={index} name={skill.title} value={skill.rate} />
             ))}
           </div>
         </div>
@@ -130,14 +111,18 @@ export const Skills = () => {
 
             <div>
               <h1 className="skills__titles">Backend Developer</h1>
-              <span className="skills__subtitle">More than 2 years</span>
+              <span className="skills__subtitle">
+                {` More than ${getExperienceYears(
+                  startDateOfMobileExperience
+                )} years`}
+              </span>
             </div>
 
             <BiChevronDown className="skills__arrow" />
           </div>
           <div className="skills__list grid">
-            {skills.backend.map((skill, index) => (
-              <Skill key={index} name={skill.name} value={skill.value} />
+            {state.skills[DevelopmentType.Backend].map((skill, index) => (
+              <Skill key={index} name={skill.title} value={skill.rate} />
             ))}
           </div>
         </div>

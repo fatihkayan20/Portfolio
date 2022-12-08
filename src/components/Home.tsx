@@ -10,45 +10,48 @@ import {
   AiOutlineLinkedin,
   AiOutlineMedium,
 } from "react-icons/ai";
-
-const items = [
-  {
-    id: 1,
-    link: "https://www.linkedin.com/in/fatihkayan/",
-    icon: <AiOutlineLinkedin />,
-  },
-  {
-    id: 2,
-    link: "https://github.com/fatihkayan20/",
-    icon: <AiOutlineGithub />,
-  },
-  {
-    id: 3,
-    link: "https://www.instagram.com/fatihkayann20/",
-    icon: <AiOutlineInstagram />,
-  },
-  {
-    id: 4,
-    link: "https://fatihkayan.medium.com/",
-    icon: <AiOutlineMedium />,
-  },
-];
+import { getSocialLinks } from "../utils/supabase/getSocialLinks";
+import { ISocialLink } from "../types/ISocialLink";
+import { SocialLinkType } from "../types/SocialLinkType";
 
 export const Home = () => {
+  const [links, setLinks] = React.useState<ISocialLink[]>([]);
+
+  React.useEffect(() => {
+    getSocialLinks()
+      .then((data) => {
+        setLinks(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const getLinkIcon = (type: SocialLinkType) => {
+    const icons = {
+      [SocialLinkType.Github]: <AiOutlineGithub />,
+      [SocialLinkType.Instagram]: <AiOutlineInstagram />,
+      [SocialLinkType.Linkedin]: <AiOutlineLinkedin />,
+      [SocialLinkType.Medium]: <AiOutlineMedium />,
+    };
+
+    return icons[type];
+  };
+
   return (
     <section className="home section" enum-data={NavItem.Home}>
       <div className="home__container container grid">
         <div className="home__content grid">
           <div className="home__social">
-            {items.map((item) => (
+            {links.map((item) => (
               <a
                 key={item.id}
-                href={item.link}
+                href={item.url}
                 target="_blank"
                 rel="noreferrer"
                 className="home__social-icon"
               >
-                {item.icon}
+                {getLinkIcon(item.type)}
               </a>
             ))}
           </div>

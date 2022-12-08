@@ -1,9 +1,33 @@
 import React from "react";
-import { FaGraduationCap } from "react-icons/fa";
 import { BsBriefcaseFill, BsCalendarDate } from "react-icons/bs";
+import { IQualification } from "../types/IQualification";
 import { NavItem } from "../types/NavItem";
+import { getQualifications } from "../utils/supabase/getQualifications";
+import { QualificationLine } from "./QualificationLine";
+import { format } from "date-fns";
 
 export const Qualification = () => {
+  const [qualifications, setQualifications] = React.useState<IQualification[]>(
+    []
+  );
+
+  React.useEffect(() => {
+    getQualifications()
+      .then((data) => {
+        setQualifications(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const getFormattedDate = (date?: string) => {
+    if (!date) {
+      return "Now";
+    }
+    return format(new Date(date), "YYY-MM");
+  };
+
   return (
     <section
       className="Qualifications section"
@@ -20,58 +44,26 @@ export const Qualification = () => {
         </div>
 
         <div className="qualification__sections">
-          <div className={`qualification__content `} data-content>
-            <div className="qualification__data">
-              <div>
-                <h3 className="qualification__title">
-                  Electric and Electronic Engineering
-                </h3>
-                <span className="qualification__subtitle">
-                  Burdur Mehmet AKif Ersoy University
-                </span>
+          <div className={`qualification__content `}>
+            {qualifications.map((qualification, index) => (
+              <div className="qualification__data" key={qualification.id}>
+                <QualificationLine isLeft={index % 2 !== 0} />
 
-                <div className="qualification__calendat">
-                  <BsCalendarDate /> 2018 - Now
+                <div>
+                  <h3 className="qualification__title">{qualification.role}</h3>
+                  <span className="qualification__subtitle">
+                    {qualification.company}
+                  </span>
+                  <div className="qualification__calendat">
+                    <BsCalendarDate />{" "}
+                    {getFormattedDate(qualification.startDate)} -
+                    {getFormattedDate(qualification.endDate)}
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <span className="qualification__rounder"></span>
-                <span className="qualification__line"></span>
+                <QualificationLine isLeft={false} isRight={index % 2 === 0} />
               </div>
-            </div>
-          </div>
-
-          <div className={`qualification__content `} data-content>
-            <div className="qualification__data">
-              <div></div>
-              <div>
-                <span className="qualification__rounder"></span>
-                <span className="qualification__line"></span>
-              </div>
-              <div>
-                <h3 className="qualification__title">Full-Stack Developer</h3>
-                <span className="qualification__subtitle">Uzum Technology</span>
-                <div className="qualification__calendat">
-                  <BsCalendarDate /> 2021 For 3 month
-                </div>
-              </div>
-            </div>
-
-            <div className="qualification__data">
-              <div>
-                <h3 className="qualification__title">Mobile Developer</h3>
-                <span className="qualification__subtitle">Wannart</span>
-
-                <div className="qualification__calendat">
-                  <BsCalendarDate /> 2021 - Now
-                </div>
-              </div>
-              <div>
-                <span className="qualification__rounder"></span>
-                <span className="qualification__line"></span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

@@ -21,8 +21,8 @@ export const Footer = () => {
 
           <ul className="footer__links">
             <li>
-              <Link to={NavItem.Projects} className="footer__link">
-                Projects
+              <Link to="projects" className="footer__link">
+                {NavItem.Projects}
               </Link>
             </li>
             <li>
