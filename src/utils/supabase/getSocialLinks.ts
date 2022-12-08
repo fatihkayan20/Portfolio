@@ -1,7 +1,7 @@
-import { SocialLink } from "../../types/ISocialLink";
+import { ISocialLink } from "../../types/ISocialLink";
 import { supabase } from "./supabase";
 
-export const getSocialLinks = async (): Promise<SocialLink[]> => {
+export const getSocialLinks = async (): Promise<ISocialLink[]> => {
   const { data, error } = await supabase
     .from("links")
     .select("*")
