@@ -61,10 +61,13 @@ export const Header: React.FC = () => {
       const sectionTop = current.offsetTop - 50;
       if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
         let enumData = current.getAttribute("enum-data") as NavItem;
-        state.active != enumData && setState({ ...state, active: enumData });
+        setState((prev) => ({
+          ...prev,
+          active: enumData,
+        }));
       }
     });
-  }, [state]);
+  }, []);
 
   React.useEffect(() => {
     function getTheme() {
