@@ -656,6 +656,7 @@ img {
 
 .portfolio__description {
     margin-bottom: var(--mb-0-75);
+    white-space: break-spaces;
 }
 
 .portfolio__buttons{
