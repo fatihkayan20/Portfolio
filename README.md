@@ -1,1 +1,1 @@
-Live at [https://fatihkayan.vercel.app/](https://www.fatihkayan.dev/)
+Live at [https://www.fatihkayan.dev/](https://www.fatihkayan.dev/)
