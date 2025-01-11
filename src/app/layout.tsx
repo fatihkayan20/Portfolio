@@ -2,7 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Header } from "@/components/header";
+import { Header } from "@/components/header-com";
 
 const inter = Inter({ subsets: ["latin"] });
 
