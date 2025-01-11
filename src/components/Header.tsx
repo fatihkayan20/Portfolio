@@ -1,155 +1,34 @@
-import * as React from "react";
-import { Link } from "react-scroll";
-import {
-  AiOutlineHome,
-  AiOutlineUser,
-  AiOutlineBook,
-  AiOutlinePicture,
-  AiOutlineSend,
-  AiOutlineAppstore,
-  AiOutlineClose,
-} from "react-icons/ai";
-import { BsMoon, BsSun } from "react-icons/bs";
-import { NavItem } from "../types/NavItem";
-import { darkThemeClass, getCurrentTheme } from "../utils/functions";
-import { ThemeIcons } from "./ThemeIcons";
+"use client";
 
-const navItems = [
-  {
-    name: NavItem.Home,
-    icon: <AiOutlineHome />,
-    link: "home",
-  },
-  {
-    name: NavItem.About,
-    icon: <AiOutlineUser />,
-    link: "about",
-  },
-  {
-    name: NavItem.Skills,
-    icon: <AiOutlineAppstore />,
-    link: "skills",
-  },
-  {
-    name: NavItem.Qualifications,
-    icon: <AiOutlineBook />,
-    link: "Qualifications",
-  },
-  {
-    name: NavItem.Projects,
-    icon: <AiOutlinePicture />,
-    link: "projects",
-  },
-  {
-    name: NavItem.ContactMe,
-    icon: <AiOutlineSend />,
-    link: "contact",
-  },
-];
+import { ThemeToggleButton } from "@/components/theme-toggle-button";
 
-export const Header: React.FC = () => {
-  const [state, setState] = React.useState({
-    isBottomNavOpen: false,
-    active: NavItem.Home,
-  });
-
-  const handleScroll = React.useCallback(() => {
-    const sections = document.querySelectorAll("section");
-    const scrollY = window.pageYOffset;
-    sections.forEach((current) => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 50;
-      if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
-        let enumData = current.getAttribute("enum-data") as NavItem;
-        setState((prev) => ({
-          ...prev,
-          active: enumData,
-        }));
-      }
-    });
-  }, []);
-
-  React.useEffect(() => {
-    function getTheme() {
-      const selectedTheme = localStorage.getItem("selected-theme");
-      const theme = getCurrentTheme();
-      setState((prev) => ({
-        ...prev,
-        theme: theme,
-      }));
-
-      if (selectedTheme) {
-        document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
-          darkThemeClass
-        );
-      }
-    }
-
-    getTheme();
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
-
-  const handleToggleBottomNav = () => {
-    setState({
-      ...state,
-      isBottomNavOpen: !state.isBottomNavOpen,
-    });
-  };
-
-  const handleMenuLinkClick = (value: NavItem) => {
-    setState({
-      ...state,
-      isBottomNavOpen: false,
-      active: value,
-    });
-  };
-
-  const getNavLinkClass = (value: NavItem) => {
-    return state.active === value ? "active-link" : "";
-  };
-
+export default function Header() {
   return (
-    <header className="header" id="header">
-      <nav className="nav container">
-        <div className="nav__logo">Fatih</div>
-
-        <div
-          className={`nav__menu ${state.isBottomNavOpen ? "show-menu" : ""}`}
-        >
-          <ul className="nav__list grid">
-            {navItems.map((item) => (
-              <li key={item.name} className={`nav__item `}>
-                <Link
-                  to={item.link}
-                  className={`nav__link ${getNavLinkClass(item.name)}`}
-                  spy={true}
-                  onClick={() => handleMenuLinkClick(item.name)}
-                >
-                  <i className="nav__icon">{item.icon}</i>
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <AiOutlineClose
-            className="nav__close"
-            onClick={handleToggleBottomNav}
-          />
-        </div>
-
-        <div className="nav__btns">
-          <ThemeIcons />
-
-          <AiOutlineAppstore
-            className="nav__toggle"
-            onClick={handleToggleBottomNav}
-          />
-        </div>
-      </nav>
+    <header className="fixed w-full z-50 bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center max-w-6xl">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">FK</h1>
+        <nav className="hidden md:flex space-x-4">
+          <a
+            href="#about"
+            className="text-gray-700 dark:text-white hover:text-blue-500 transition-colors"
+          >
+            About
+          </a>
+          <a
+            href="#projects"
+            className="text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors"
+          >
+            Projects
+          </a>
+          <a
+            href="#experience"
+            className="text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors"
+          >
+            Experience
+          </a>
+        </nav>
+        <ThemeToggleButton />
+      </div>
     </header>
   );
-};
+}
