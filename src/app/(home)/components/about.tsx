@@ -40,12 +40,13 @@ export default function About() {
             className="w-full md:w-2/3"
           >
             <p className="text-lg mb-4">
-              I'm a passionate Software Engineer with over 3 years of experience
-              in frontend, backend, and mobile development. I specialize in
-              creating robust, scalable applications and delivering exceptional
-              user experiences. Skilled in modern technologies like Next.js,
-              React, React Native, and Expo, I focus on writing high-quality
-              code that enhances performance and usability.
+              I&apos;m a passionate Software Engineer with over 3 years of
+              experience in frontend, backend, and mobile development. I
+              specialize in creating robust, scalable applications and
+              delivering exceptional user experiences. Skilled in modern
+              technologies like Next.js, React, React Native, and Expo, I focus
+              on writing high-quality code that enhances performance and
+              usability.
             </p>
             <p className="text-lg mb-4">
               I have successfully led code refactoring initiatives, achieving a

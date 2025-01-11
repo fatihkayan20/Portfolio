@@ -2,6 +2,7 @@ import Hero from "@/app/(home)/components/hero";
 import Experience from "@/app/(home)/components/experience";
 import Projects from "@/app/(home)/components/projects";
 import About from "@/app/(home)/components/about";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -9,8 +10,9 @@ export default function Home() {
       <Hero />
 
       <About />
-
-      <Projects />
+      <Suspense>
+        <Projects />
+      </Suspense>
 
       <Experience />
     </main>
