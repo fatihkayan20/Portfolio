@@ -6,7 +6,7 @@ import { FaReact, FaNodeJs } from "react-icons/fa";
 import { SiTypescript, SiExpo } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
 
-export default function About() {
+export const About = () => {
   return (
     <section id="about" className="py-20">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -71,4 +71,4 @@ export default function About() {
       </div>
     </section>
   );
-}
+};

@@ -3,7 +3,7 @@
 import { memo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const Particles = memo(function Particles() {
+export const Particles = memo(function Particles() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -38,5 +38,3 @@ const Particles = memo(function Particles() {
     </div>
   );
 });
-
-export default Particles;

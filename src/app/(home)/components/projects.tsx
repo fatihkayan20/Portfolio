@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const projectTags = ["All", ...Object.values(ProjectTag)];
 
-export default function Projects() {
+export const Projects = () => {
   const [filter, setFilter] = useQueryState("filter", {
     defaultValue: "All",
     parse: (value) => (projectTags.includes(value) ? value : "All"),
@@ -118,4 +118,4 @@ export default function Projects() {
       </div>
     </section>
   );
-}
+};

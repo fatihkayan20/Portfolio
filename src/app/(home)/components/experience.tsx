@@ -3,7 +3,7 @@
 import { experiences } from "@/app/(home)/data/experiences";
 import { motion } from "framer-motion";
 
-export default function Experience() {
+export const Experience = () => {
   return (
     <section id="experience" className="py-20">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -49,4 +49,4 @@ export default function Experience() {
       </div>
     </section>
   );
-}
+};

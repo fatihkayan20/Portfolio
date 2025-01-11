@@ -2,7 +2,7 @@
 
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 
-export default function Header() {
+export const Header = () => {
   return (
     <header className="fixed w-full z-50 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center max-w-6xl">
@@ -31,4 +31,4 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};

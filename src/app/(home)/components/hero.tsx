@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { FaMedium } from "react-icons/fa";
-import Particles from "@/app/(home)/components/particles";
+import { Particles } from "@/app/(home)/components/particles";
 import { SocialLinks } from "@/app/(home)/data/social-links";
 
 const words = ["Web", "Mobile", "Full Stack"];
 
-export default function Hero() {
+export const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
 
   useEffect(() => {
@@ -97,4 +97,4 @@ export default function Hero() {
       <Particles />
     </section>
   );
-}
+};
