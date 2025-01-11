@@ -20,7 +20,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="relative h-screen w-dvw flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-500 to-purple-600">
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-500 to-purple-600">
       <div className="text-center z-10 text-white max-w-4xl px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
